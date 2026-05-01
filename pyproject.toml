@@ -1,0 +1,32 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ms0240-wages-regression"
+version = "0.1.0"
+description = "Regression utilities for the MS0240 CA3 Wages 2021 June analysis."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+  { name = "Goh Kun Ming" }
+]
+dependencies = [
+  "numpy>=1.26",
+  "pandas>=2.0",
+  "openpyxl>=3.1"
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.0"
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra"

@@ -1,0 +1,9 @@
+cff-version: 1.2.0
+message: "If you reuse this coursework structure or regression utilities, please cite it."
+title: "MS0240 CA3 Wages 2021 June Regression Analysis"
+version: "0.1.0"
+date-released: "2026-05-01"
+authors:
+  - family-names: "Goh"
+    given-names: "Kun Ming"
+license: "MIT"
