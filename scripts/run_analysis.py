@@ -5,7 +5,6 @@ from __future__ import annotations
 import sys
 from pathlib import Path
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 SRC_ROOT = PROJECT_ROOT / "src"
 if str(SRC_ROOT) not in sys.path:
@@ -21,10 +20,9 @@ from ms0240_wages import (  # noqa: E402
 
 
 def main() -> int:
+    """Run all three wage models and print their fitted equations and errors."""
     wages = load_wages_data(PROJECT_ROOT / "data" / "raw" / "Wages-2021-June.xlsx")
-    model3_data = load_model3_data(
-        PROJECT_ROOT / "data" / "processed" / "model3_data.xlsx"
-    )
+    model3_data = load_model3_data(PROJECT_ROOT / "data" / "processed" / "model3_data.xlsx")
 
     model1 = model1_without_intercept(wages)
     model2 = model2_with_intercept(wages)
