@@ -4,6 +4,15 @@ Coursework project for Singapore Polytechnic, School of Computing, Diploma in Ap
 
 This repository contains the Mathematics for Artificial Intelligence (MS0240) CA3 report and supporting analysis for the Wages 2021 June dataset. The work was completed by Goh Kun Ming, DAAA student, AY2025/2026 Year 2 Semester 2, under Adj. Lect. Tan Lian Kuan.
 
+## Evidence and interpretation
+
+| Evidence-backed measure | Current repository evidence |
+| --- | --- |
+| Reproducible optimisation | The corrected gradient-descent configuration converges in **173 iterations**. |
+| Reported comparison | Tests cover **3 regression models**; Model 3 uses a **10-row derived table**. |
+
+The qualitative outcome is a transparent wage-regression study connecting analytical derivation, Minitab results, reusable code, and a compiled report. Predictive improvement is not claimed without an explicit held-out baseline metric.
+
 ## Project Contents
 
 - `report/` - LaTeX report source, figures, bibliography, and Singapore Polytechnic logo asset.

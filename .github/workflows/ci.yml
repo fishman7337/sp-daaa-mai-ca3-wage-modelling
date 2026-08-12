@@ -5,17 +5,23 @@ on:
   pull_request:
   workflow_dispatch:
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   python:
+    timeout-minutes: 30
     name: Python tests
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: "3.12"
 
@@ -28,26 +34,31 @@ jobs:
       - name: Run regression script
         run: python scripts/run_analysis.py
 
+      - name: Check Python lint and formatting
+        run: |
+          python -m ruff check .
+          python -m ruff format --check .
+
       - name: Run pytest
         run: python -m pytest
 
   latex:
+    timeout-minutes: 30
     name: Build report PDF
     runs-on: ubuntu-latest
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
-
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
       - name: Compile LaTeX report
-        uses: xu-cheng/latex-action@v3
+        uses: xu-cheng/latex-action@e2f99d4b3685b0da93f97e1b86ad8fab81105098 # v3.3.0
         with:
           root_file: main.tex
           working_directory: report
           args: -pdf -interaction=nonstopmode -halt-on-error -file-line-error
 
       - name: Upload report artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: ms0240-ca3-report
           path: report/main.pdf

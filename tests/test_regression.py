@@ -10,7 +10,6 @@ from ms0240_wages import (
     model3_multiple_regression,
 )
 
-
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 
 

@@ -2,13 +2,12 @@
 
 from __future__ import annotations
 
+from collections.abc import Iterable
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable
 
 import numpy as np
 import pandas as pd
-
 
 WAGES_COLUMNS = ("Median Age", "Basic Wage ($)")
 MODEL3_COLUMNS = (
@@ -41,19 +40,16 @@ class MultipleRegressionResult:
 
 def load_wages_data(path: str | Path) -> pd.DataFrame:
     """Load the main Wages 2021 June dataset and validate required columns."""
-
     return _load_excel_with_columns(path, WAGES_COLUMNS)
 
 
 def load_model3_data(path: str | Path) -> pd.DataFrame:
     """Load the derived Model 3 dataset and validate required columns."""
-
     return _load_excel_with_columns(path, MODEL3_COLUMNS)
 
 
 def mean_squared_error(actual: np.ndarray, predicted: np.ndarray) -> float:
     """Return the average squared prediction error."""
-
     actual = np.asarray(actual, dtype=float)
     predicted = np.asarray(predicted, dtype=float)
     if actual.shape != predicted.shape:
@@ -69,7 +65,6 @@ def model1_without_intercept(
     max_iterations: int = 150,
 ) -> SimpleRegressionResult:
     """Fit y = bx using the same gradient descent settings as Question 1."""
-
     x = _column_as_float_array(data, "Median Age")
     y = _column_as_float_array(data, "Basic Wage ($)")
 
@@ -102,7 +97,6 @@ def model2_with_intercept(
     max_iterations: int = 1000,
 ) -> SimpleRegressionResult:
     """Fit y = a + bx using scaled Median Age for stable gradient descent."""
-
     x = _column_as_float_array(data, "Median Age")
     y = _column_as_float_array(data, "Basic Wage ($)")
     x_scaled, mean_x, std_x = _standardise(x)
@@ -146,7 +140,6 @@ def model3_multiple_regression(
     max_iterations: int = 1000,
 ) -> MultipleRegressionResult:
     """Fit y = a + bx + cw using scaled age and overtime predictors."""
-
     age = _column_as_float_array(data, "Median Age")
     overtime = _column_as_float_array(data, "Average Overtime Hours per Month")
     wage = _column_as_float_array(data, "Basic Wage ($)")
@@ -183,9 +176,7 @@ def model3_multiple_regression(
     age_coefficient = b_scaled / std_age
     overtime_coefficient = c_scaled / std_overtime
     intercept = (
-        a_scaled
-        - (b_scaled * mean_age / std_age)
-        - (c_scaled * mean_overtime / std_overtime)
+        a_scaled - (b_scaled * mean_age / std_age) - (c_scaled * mean_overtime / std_overtime)
     )
     predicted = intercept + age_coefficient * age + overtime_coefficient * overtime
     return MultipleRegressionResult(
